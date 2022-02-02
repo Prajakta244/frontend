@@ -1,16 +1,18 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-a {
-  color: inherit;
-  text-decoration: none;
+@layer components{
+  .link{
+      @apply cursor-pointer hover:text-black text-gray-700 font-bold font-sans;
+  }
+  .card{
+    @apply bg-gradient-to-b from-emerald-100 to-emerald-200 border-emerald-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-emerald-300 active:from-emerald-500 font-sans hover:shadow-inner transform hover:scale-95 hover:bg-opacity-80 transition ease-out duration-500
+  }
+  .react-pdf__Page__canvas {
+    @apply
+    margin: 0 auto;
+    width: 292px !important;
+    height: 443px !important;
 }
-
-* {
-  box-sizing: border-box;
 }
