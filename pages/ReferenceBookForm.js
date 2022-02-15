@@ -58,10 +58,10 @@ const Syllabus = () => {
     formdata.append("degree", data.degree);
     formdata.append("course", data.course);
     formdata.append("year", data.year);
-    formdata.append("syllabus_year", data.syllabus_year);
+    formdata.append("subject", data.subject);
     
     axios
-      .post("http://127.0.0.1:8000/syllabus", formdata, {
+      .post("http://127.0.0.1:8000/reference_book", formdata, {
         headers: {
           "Content-type": "multipart/form-data",
         },
@@ -72,6 +72,7 @@ const Syllabus = () => {
       .catch(function (error) {
         console.log(error);
       });
+      return true
   };
   const year = 2010;
   const years = Array.from(new Array(20),( val, index) => index + year);
@@ -87,7 +88,7 @@ const Syllabus = () => {
           course:"",
           year:"",
           file:"",
-          syllabus_year:"0"
+          subject:"0"
         }}
         onSubmit={submitFunc}
         // validationSchema={validateSchema}
@@ -150,21 +151,31 @@ const Syllabus = () => {
         <Field
               component={TextField}
               type="text"
-              name="syllabus_year"
+              name="subject"
               label="Year"
               select
               variant="standard"
-              helperText="Please select year"
+              helperText="Please select subject"
               margin="normal"
               InputLabelProps={{
                 shrink: true,
               }}
             >
-              {years.map((year) => (
-                <MenuItem key={year} value={year}>
-                  {year}
+                <MenuItem key='subject1' value='subject1'>
+                  Subject1
                 </MenuItem>
-              ))}
+                <MenuItem key='subject2' value='subject2'>
+                  Subject2
+                </MenuItem>
+                <MenuItem key='subject3' value='subject3'>
+                  Subject3
+                </MenuItem>
+                <MenuItem key='subject4' value='subject4'>
+                  Subject4
+                </MenuItem>
+                <MenuItem key='subject5' value='subject5'>
+                  Subject5
+                </MenuItem>
             </Field>
             <input
               {...register("file", { required: true })}

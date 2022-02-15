@@ -20,3 +20,16 @@
     font-size: 14px;
     font-weight: 600;
   }
+
+  ::-webkit-file-upload-button{
+    color: white;
+    background: black;
+    padding: 10px;
+    border: none;
+    border-radius: 40px;
+    box-shadow: 1px 0 1px 1px #6b4559;
+    outline: none;
+  }
+  ::-webkit-file-upload-button:hover{
+    background: #438a5e;
+  }

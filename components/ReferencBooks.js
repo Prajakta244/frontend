@@ -7,26 +7,31 @@ import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
+import TabPanel from "@mui/lab/TabPanel";
 // import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import Backdrop from '@mui/material/Backdrop';
-import Box from '@mui/material/Box';
-import Modal from '@mui/material/Modal';
-import Fade from '@mui/material/Fade';
-import Button from '@mui/material/Button';
+import Backdrop from "@mui/material/Backdrop";
+import Box from "@mui/material/Box";
+import Modal from "@mui/material/Modal";
+import Fade from "@mui/material/Fade";
+import Button from "@mui/material/Button";
+import { Link } from "react-router-dom";
+import { makeStyles } from "@mui/styles";
 // import Typography from '@mui/material/Typography';
 // import '../components/ReferencBooks.css'
+import MainTabPanel from "./MainTabPanel";
 
-const ReferencBooks = () => {
+
+const ReferencBooks = ({ book }) => {
   const style = {
-    position: 'absolute',
-    top: '165%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
+    position: "absolute",
+    top: "165%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
     // width: 500,
     // height:800,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
+    bgcolor: "background.paper",
+    border: "2px solid #000",
     boxShadow: 24,
     // p: 4,
   };
@@ -39,31 +44,91 @@ const ReferencBooks = () => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const useStyles = makeStyles({
+    cardcontainer: {
+      // width:600,
+      overflow: "hidden",
+      paddingLeft:20,
+      marginInline: 10,
+      // borderRight
+      borderRight:'0.3px solid gray'
+    },
+    pdfcontainer: {
+      overflow: "hidden",
+      height:'100%',
+      paddingLeft:25,
+      width:230
+    },
+    content: {
+      marginInline:25,
+      // paddingTop:20
+    },
+    text: {
+      fontWeight: 500,
+      fontSize: 20,
+      color: "black",
+
+      // [theme.breakpoints.down("md")]: {
+      //   fontSize: 12,
+      // },
+      
+    },
+    hr: {
+      borderLeft:'5px solid black',
+      width:25,
+      height:500,
+      position:'absolute'
+  }
+  });
+
+  const classes = useStyles();
 
   return (
     <div>
-      <Card sx={{ maxWidth: 300 }}>
-        <div>
+      <Box
+      sx={{
+        width: 300,
+        height: 300,
+        // backgroundColor: 'gray',
+        // '&:hover': {
+        //   backgroundColor: 'primary.main',
+        //   opacity: [0.9, 0.8, 0.7],
+        // },
+        alignItems:'center'
+      }}
+    >
+      <div className={classes.cardcontainer}>
+        <div className={classes.pdfcontainer}>
           <Document
-            file="/assets/docs/F.-Y.-B.Sc-Computer-Scienc 2016 -2020.pdf"
+            file={book["filepath"]}
             onLoadSuccess={onDocumentLoadSuccess}
           >
-            <Page width={250} pageNumber={pageNumber} />
+            <Page className='self-center' height={250} pageNumber={pageNumber} />
           </Document>
         </div>
-        <CardContent className="-mt-5">
-          <Typography gutterBottom variant="h5" component="div">
-            Book1
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Subject one
-          </Typography>
-        </CardContent>
-        <CardActions>
-          <Button size="small" onClick={handleOpen} >Preview</Button>
-          <Button size="small">Download</Button>
-        </CardActions>
-      </Card>
+        
+        <div className={classes.content}>
+          <Typography className={classes.text}>{book["subject"]}</Typography>
+          <hr/>
+          <Button size="small" onClick={handleOpen}>
+            Preview
+          </Button>
+          <a
+            href={book["filepath"]}
+            target="_blank"
+            rel="noopener noreferrer"
+            download
+          >
+            <Button size="small">
+              {/* <i className="fas fa-download" /> */}
+              Download File
+            </Button>
+          </a>
+        </div>
+        {/* <div className={classes.hr}></div> */}
+      </div>
+      </Box>
+      {/* <hr /> */}
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -74,29 +139,31 @@ const ReferencBooks = () => {
         BackdropProps={{
           timeout: 500,
         }}
-        style={{ overflow: 'scroll' }}
+        style={{ overflow: "scroll" }}
       >
-        <div style={{
-zIndex: 10,
-padding:10
-}}>
-        <Fade in={open}>
-          <Box sx={style}>
-            {[1,2].map((i)=>(
-              <Document
-              file="/assets/docs/F.-Y.-B.Sc-Computer-Scienc 2016 -2020.pdf"
-              onLoadSuccess={onDocumentLoadSuccess}
-            >
-              <Page width={700} pageNumber={i} />
-            </Document>
-            ))}
-          
-          </Box>
-        </Fade>
+        <div
+          style={{
+            zIndex: 10,
+            padding: 10,
+          }}
+        >
+          <Fade in={open}>
+            <Box sx={style}>
+              {[1, 2].map((i) => (
+                <Document
+                  file={book["filepath"]}
+                  onLoadSuccess={onDocumentLoadSuccess}
+                >
+                  <Page width={700} pageNumber={i} />
+                </Document>
+              ))}
+            </Box>
+          </Fade>
         </div>
       </Modal>
+      
     </div>
   );
 };
-ReferencBooks.layout = courseContent;
+ReferencBooks.layout = "L1";
 export default ReferencBooks;

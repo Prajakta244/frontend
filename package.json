@@ -35,7 +35,8 @@
     "react-pdf-viewer": "^0.1.0",
     "react-pro-sidebar": "^0.7.1",
     "react-responsive-carousel": "^3.2.22",
-    "react-router-dom": "^6.2.1"
+    "react-router-dom": "^6.2.1",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.2",
